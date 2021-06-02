@@ -6,3 +6,7 @@
 2. Open a PowerShell Window.
 3. Run the following command: `Resolve-DnsName -Name howcode.org -Server 127.0.0.1 -Type A`.
 4. The results match with the `zones/howcode.org.zone` file.
+
+## Important notes
+1. The server only supports DNS A Records.
+2. The server does not support request recursion and error flags.
