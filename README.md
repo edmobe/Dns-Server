@@ -4,7 +4,7 @@
 ## How to use
 1. Run the `main.py` file using Python 3.
 2. Open a PowerShell Window.
-3. Run the following command: `Resolve-DnsName -Name howcode.org -Server 127.0.0.1 -Type A`.
+3. Run the following command: `Resolve-DnsName -Name howcode.org -Server <IP ADDRESS> -Type A`.
 4. The results match with the `zones/howcode.org.zone` file.
 
 ## Important notes
