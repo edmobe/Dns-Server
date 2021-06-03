@@ -1,12 +1,19 @@
 import socket, glob, json
 
 class DnsServer:
-    def __init__(self, ip):
+    def __init__(self):
         # Use DNS default port
         self.port = 53
 
         # Set the IP
-        self.ip = ip
+        ipAdresses = socket.gethostbyname_ex(socket.gethostname())[-1]
+
+        print("Select your IP Address:")
+        for i in range(0, len(ipAdresses)):
+            print(str(i + 1) + ".", ipAdresses[i])
+
+        selected = input("Enter the IP index >> ")
+        self.ip = ipAdresses[int(selected) - 1]
 
         # Zone data load
         self.zoneData = self.loadZones()
@@ -18,6 +25,8 @@ class DnsServer:
 
         # Bind the socket
         self.serverSocket.bind((self.ip, self.port))
+
+        print("Server initialized.")
 
     def loadZones(self):
         """
@@ -134,7 +143,7 @@ class DnsServer:
         for bit in range(1, 5):
             # Convert first byte to integer and get every bit at a specific position
             opcode += str(ord(REQUEST_BYTE_1) & (1 << bit))
-
+        
         # The authorative answer will always be 1
         AA = '1'
 
@@ -349,11 +358,15 @@ class DnsServer:
     def run(self):
         # Main method (program loop)
         while True:
-            # Recieve 512 octects as stated in the DNS standards
+            # Recieve 512 octects (bytes) as stated in the DNS standards
             data, addr = self.serverSocket.recvfrom(512)
+
+            print("New DNS request recieved.")
 
             # Build DNS response
             response = self.buildResponse(data)
 
             # Respond
             self.serverSocket.sendto(response, addr)
+
+            print("DNS request responded.")
