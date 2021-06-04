@@ -363,10 +363,13 @@ class DnsServer:
 
             print("New DNS request recieved.")
 
-            # Build DNS response
-            response = self.buildResponse(data)
+            try:
+                # Build DNS response
+                response = self.buildResponse(data)
 
-            # Respond
-            self.serverSocket.sendto(response, addr)
+                # Respond
+                self.serverSocket.sendto(response, addr)
 
-            print("DNS request responded.")
+                print("DNS request responded.")
+            except Exception as exception:
+                print("DNS address not found:", exception)

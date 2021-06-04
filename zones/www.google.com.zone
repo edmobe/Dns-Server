@@ -1,0 +1,6 @@
+{
+    "$origin": "www.google.com.",
+    "a": [
+        { "name": "@", "ttl": 140, "value": "172.217.15.206" }
+    ]
+}
